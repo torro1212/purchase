@@ -1,0 +1,50 @@
+[
+    {
+        "id": 4,
+        "name": "Alexit",
+        "contactPerson": "שלומי",
+        "phone": "050-2066000"
+    },
+    {
+        "id": 5,
+        "name": "ניאוטק פתרונות מחשוב בע\"מ",
+        "contactPerson": "נתי",
+        "phone": "054-2320063"
+    },
+    {
+        "id": 6,
+        "name": "HYP",
+        "contactPerson": "כפיר",
+        "phone": "052-3411126"
+    },
+    {
+        "id": 7,
+        "name": "Matrix",
+        "contactPerson": "רון ברודו",
+        "phone": "050-2223440"
+    },
+    {
+        "id": 8,
+        "name": "ממטל",
+        "contactPerson": "ניב",
+        "phone": "052-4877631"
+    },
+    {
+        "id": 9,
+        "name": "Dangot",
+        "contactPerson": "מירב",
+        "phone": "054-2208315"
+    },
+    {
+        "id": 10,
+        "name": "Dimex",
+        "contactPerson": "מרט",
+        "phone": "050-8777141"
+    },
+    {
+        "id": 11,
+        "name": "Verifone",
+        "contactPerson": "שמוליק",
+        "phone": "054-6778223"
+    }
+]

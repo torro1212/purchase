@@ -1,0 +1,56 @@
+[
+    {
+        "id": "prod-1",
+        "name": "Lane 3000 - מסופון אשראי",
+        "sku": "100-000234",
+        "description": "מסופון אשראי - ingenico",
+        "currency": "ILS",
+        "supplierId": 11,
+        "price": 1200
+    },
+    {
+        "id": "prod-2",
+        "name": "Lane 3000 - מעמד יעודי",
+        "sku": "200-000242",
+        "description": "מעמד למסופון אשראי",
+        "currency": "ILS",
+        "supplierId": 11,
+        "price": 150
+    },
+    {
+        "id": "prod-3",
+        "name": "Lane 3000 - דמי התקנה (0-5 יח)",
+        "sku": "אין מק\"ט",
+        "description": "דמי התקנה (0-5 יח)",
+        "currency": "ILS",
+        "supplierId": 11,
+        "price": 500
+    },
+    {
+        "id": "prod-4",
+        "name": "Lane 3000 - דמי התקנה (5-10 יח)",
+        "sku": "אין מק\"ט",
+        "description": "דמי התקנה (5-10 יח)",
+        "currency": "ILS",
+        "supplierId": 11,
+        "price": 400
+    },
+    {
+        "id": "prod-5",
+        "name": "Lane 3000 - דמי התקנה (10-30 יח)",
+        "sku": "אין מק\"ט",
+        "description": "דמי התקנה (10-30 יח)",
+        "currency": "ILS",
+        "supplierId": 11,
+        "price": 300
+    },
+    {
+        "id": "prod-6",
+        "name": "אינטגרציה (שעות עבודה)",
+        "sku": "אין מק\"ט",
+        "description": "אינטגרציה (שעות עבודה)",
+        "currency": "ILS",
+        "supplierId": 11,
+        "price": 350
+    }
+]
