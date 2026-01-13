@@ -10,10 +10,7 @@ export default function EditOrderPage() {
     const printRef = useRef<HTMLDivElement>(null);
     const {
         orders,
-        suppliers,
         products,
-        companies,
-        budgets,
         updateOrder,
         deleteOrder,
         calculateOrderTotals
