@@ -141,6 +141,27 @@ export default function NewOrderPage() {
         navigate(`/orders/${newOrder.id}`);
     };
 
+    const ActionButtons = () => (
+        <div className="flex gap-md">
+            <button
+                className="btn btn-secondary"
+                onClick={() => handleSave('draft')}
+                disabled={items.length === 0}
+            >
+                <Save size={20} />
+                שמור טיוטה
+            </button>
+            <button
+                className="btn btn-primary"
+                onClick={() => handleSave('sent')}
+                disabled={items.length === 0}
+            >
+                <FileText size={20} />
+                שמור ושלח
+            </button>
+        </div>
+    );
+
     return (
         <div className="animate-fadeIn">
             <header className="page-header">
@@ -149,22 +170,7 @@ export default function NewOrderPage() {
                     <p className="page-subtitle">יצירת הזמנת רכש חדשה</p>
                 </div>
                 <div className="flex gap-md">
-                    <button
-                        className="btn btn-secondary"
-                        onClick={() => handleSave('draft')}
-                        disabled={items.length === 0}
-                    >
-                        <Save size={20} />
-                        שמור טיוטה
-                    </button>
-                    <button
-                        className="btn btn-primary"
-                        onClick={() => handleSave('sent')}
-                        disabled={items.length === 0}
-                    >
-                        <FileText size={20} />
-                        שמור ושלח
-                    </button>
+                    <ActionButtons />
                 </div>
             </header>
 
@@ -172,7 +178,7 @@ export default function NewOrderPage() {
                 {/* Supplier Section */}
                 <div className="order-section">
                     <h3 className="order-section-title">
-                        <ShoppingCart size={20} />
+                        <ShoppingCart size={24} />
                         פרטי ספק
                     </h3>
 
@@ -218,7 +224,7 @@ export default function NewOrderPage() {
                 {/* Company & Budget Section */}
                 <div className="order-section">
                     <h3 className="order-section-title">
-                        <Building2 size={20} />
+                        <Building2 size={24} />
                         חברה ותקציב
                     </h3>
 
@@ -338,7 +344,7 @@ export default function NewOrderPage() {
                 {/* Items Section */}
                 <div className="order-section">
                     <h3 className="order-section-title">
-                        <Package size={20} />
+                        <Package size={24} />
                         פריטים
                     </h3>
 
@@ -444,7 +450,7 @@ export default function NewOrderPage() {
                                 gap: 'var(--spacing-md)',
                                 padding: 'var(--spacing-sm) 0'
                             }}>
-                                <label className="form-checkbox" style={{ color: 'white' }}>
+                                <label className="form-checkbox" style={{ color: 'var(--color-text-primary)' }}>
                                     <input
                                         type="checkbox"
                                         checked={includesVat}
@@ -472,7 +478,7 @@ export default function NewOrderPage() {
                 {/* Notes */}
                 <div className="order-section">
                     <h3 className="order-section-title">
-                        <FileText size={20} />
+                        <FileText size={24} />
                         הערות
                     </h3>
                     <textarea
@@ -483,6 +489,14 @@ export default function NewOrderPage() {
                         rows={3}
                     />
                 </div>
+            </div>
+
+            {/* Bottom Actions */}
+            <div className="flex justify-between items-center mt-lg p-lg bg-white border border-[var(--color-border)] rounded-xl shadow-sm sticky bottom-4">
+                <div className="text-muted">
+                    * נא לבדוק את כל הפרטים לפני השליחה
+                </div>
+                <ActionButtons />
             </div>
         </div>
     );
