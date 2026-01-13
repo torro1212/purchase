@@ -32,7 +32,7 @@ export default function Dashboard() {
             {/* Stats Grid */}
             <div className="stats-grid">
                 <div className="stat-card">
-                    <div className="stat-icon">
+                    <div className="stat-icon" style={{ background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)' }}>
                         <FileText />
                     </div>
                     <div>
@@ -42,7 +42,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="stat-card">
-                    <div className="stat-icon" style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' }}>
+                    <div className="stat-icon" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
                         <FileText />
                     </div>
                     <div>
@@ -52,7 +52,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="stat-card">
-                    <div className="stat-icon" style={{ background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)' }}>
+                    <div className="stat-icon" style={{ background: 'rgba(34, 197, 94, 0.15)', color: '#4ade80', border: '1px solid rgba(34, 197, 94, 0.3)' }}>
                         <FileText />
                     </div>
                     <div>
@@ -62,7 +62,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="stat-card">
-                    <div className="stat-icon" style={{ background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)' }}>
+                    <div className="stat-icon" style={{ background: 'rgba(139, 92, 246, 0.15)', color: '#a78bfa', border: '1px solid rgba(139, 92, 246, 0.3)' }}>
                         <Users />
                     </div>
                     <div>
@@ -72,7 +72,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="stat-card">
-                    <div className="stat-icon" style={{ background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)' }}>
+                    <div className="stat-icon" style={{ background: 'rgba(6, 182, 212, 0.15)', color: '#22d3ee', border: '1px solid rgba(6, 182, 212, 0.3)' }}>
                         <Package />
                     </div>
                     <div>

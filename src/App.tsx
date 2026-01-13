@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
 import {
     LayoutDashboard,
@@ -6,7 +7,9 @@ import {
     Package,
     Building2,
     Wallet,
-    PlusCircle
+    PlusCircle,
+    Menu,
+    X
 } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
 import OrdersPage from './pages/OrdersPage';
@@ -19,11 +22,29 @@ import BudgetsPage from './pages/BudgetsPage';
 
 export default function App() {
     const location = useLocation();
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    const closeMobileMenu = () => setMobileMenuOpen(false);
 
     return (
         <div className="app-layout">
+            {/* Mobile Menu Toggle */}
+            <button
+                className="mobile-menu-toggle"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
+            >
+                {mobileMenuOpen ? <X /> : <Menu />}
+            </button>
+
+            {/* Mobile Overlay */}
+            <div
+                className={`sidebar-overlay ${mobileMenuOpen ? 'open' : ''}`}
+                onClick={closeMobileMenu}
+            />
+
             {/* Sidebar */}
-            <aside className="sidebar">
+            <aside className={`sidebar ${mobileMenuOpen ? 'open' : ''}`}>
                 <div className="sidebar-logo">
                     <FileText size={32} />
                     <h1>הזמנות רכש</h1>
@@ -35,6 +56,7 @@ export default function App() {
                         <NavLink
                             to="/"
                             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                            onClick={closeMobileMenu}
                         >
                             <LayoutDashboard size={20} />
                             <span>לוח בקרה</span>
@@ -42,6 +64,7 @@ export default function App() {
                         <NavLink
                             to="/orders"
                             className={({ isActive }) => `nav-link ${isActive && !location.pathname.includes('/new') ? 'active' : ''}`}
+                            onClick={closeMobileMenu}
                         >
                             <FileText size={20} />
                             <span>הזמנות</span>
@@ -49,6 +72,7 @@ export default function App() {
                         <NavLink
                             to="/orders/new"
                             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                            onClick={closeMobileMenu}
                         >
                             <PlusCircle size={20} />
                             <span>הזמנה חדשה</span>
@@ -60,6 +84,7 @@ export default function App() {
                         <NavLink
                             to="/suppliers"
                             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                            onClick={closeMobileMenu}
                         >
                             <Users size={20} />
                             <span>ספקים</span>
@@ -67,6 +92,7 @@ export default function App() {
                         <NavLink
                             to="/products"
                             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                            onClick={closeMobileMenu}
                         >
                             <Package size={20} />
                             <span>מוצרים</span>
@@ -78,6 +104,7 @@ export default function App() {
                         <NavLink
                             to="/companies"
                             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                            onClick={closeMobileMenu}
                         >
                             <Building2 size={20} />
                             <span>חברות</span>
@@ -85,6 +112,7 @@ export default function App() {
                         <NavLink
                             to="/budgets"
                             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                            onClick={closeMobileMenu}
                         >
                             <Wallet size={20} />
                             <span>תקציבים</span>
