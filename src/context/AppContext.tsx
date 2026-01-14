@@ -1,5 +1,6 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
-import { dataService } from '../services/dataService';
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
+import { firebaseService } from '../services/firebaseDataService';
+import { useAuth } from './AuthContext';
 import type {
     Supplier,
     Product,
@@ -17,30 +18,33 @@ interface AppContextType {
     budgets: Budget[];
     orders: PurchaseOrder[];
 
+    isLoading: boolean;
+    error: string | null;
+
     // Supplier actions
-    addSupplier: (supplier: Omit<Supplier, 'id'>) => Supplier;
-    updateSupplier: (id: number, updates: Partial<Supplier>) => void;
-    deleteSupplier: (id: number) => void;
+    addSupplier: (supplier: Omit<Supplier, 'id'>) => Promise<Supplier>;
+    updateSupplier: (id: number, updates: Partial<Supplier>) => Promise<void>;
+    deleteSupplier: (id: number) => Promise<void>;
 
     // Product actions
-    addProduct: (product: Omit<Product, 'id'>) => Product;
-    updateProduct: (id: string, updates: Partial<Product>) => void;
-    deleteProduct: (id: string) => void;
+    addProduct: (product: Omit<Product, 'id'>) => Promise<Product>;
+    updateProduct: (id: string, updates: Partial<Product>) => Promise<void>;
+    deleteProduct: (id: string) => Promise<void>;
 
     // Company actions
-    addCompany: (company: Omit<Company, 'id'>) => Company;
-    updateCompany: (id: string, updates: Partial<Company>) => void;
-    deleteCompany: (id: string) => void;
+    addCompany: (company: Omit<Company, 'id'>) => Promise<Company>;
+    updateCompany: (id: string, updates: Partial<Company>) => Promise<void>;
+    deleteCompany: (id: string) => Promise<void>;
 
     // Budget actions
-    addBudget: (budget: Budget) => Budget;
-    updateBudget: (code: number, updates: Partial<Budget>) => void;
-    deleteBudget: (code: number) => void;
+    addBudget: (budget: Budget) => Promise<Budget>;
+    updateBudget: (code: number, updates: Partial<Budget>) => Promise<void>;
+    deleteBudget: (code: number) => Promise<void>;
 
     // Order actions
-    createOrder: (order: Omit<PurchaseOrder, 'id' | 'orderNumber' | 'createdAt' | 'updatedAt'>) => PurchaseOrder;
-    updateOrder: (id: string, updates: Partial<PurchaseOrder>) => void;
-    deleteOrder: (id: string) => void;
+    createOrder: (order: Omit<PurchaseOrder, 'id' | 'orderNumber' | 'createdAt' | 'updatedAt'>) => Promise<PurchaseOrder>;
+    updateOrder: (id: string, updates: Partial<PurchaseOrder>) => Promise<void>;
+    deleteOrder: (id: string) => Promise<void>;
 
     // Utilities
     calculateOrderTotals: (items: OrderItem[], includesVat: boolean) => {
@@ -49,117 +53,151 @@ interface AppContextType {
         vatAmount: number;
         total: number;
     };
-    generateOrderNumber: () => string;
-    refreshData: () => void;
+    refreshData: () => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-    const [suppliers, setSuppliers] = useState<Supplier[]>(() => dataService.getSuppliers());
-    const [products, setProducts] = useState<Product[]>(() => dataService.getProducts());
-    const [companies, setCompanies] = useState<Company[]>(() => dataService.getCompanies());
-    const [budgets, setBudgets] = useState<Budget[]>(() => dataService.getBudgets());
-    const [orders, setOrders] = useState<PurchaseOrder[]>(() => dataService.getOrders());
+    const { user } = useAuth();
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    const refreshData = useCallback(() => {
-        setSuppliers(dataService.getSuppliers());
-        setProducts(dataService.getProducts());
-        setOrders(dataService.getOrders());
-    }, []);
+    const [suppliers, setSuppliers] = useState<Supplier[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
+    const [companies, setCompanies] = useState<Company[]>([]);
+    const [budgets, setBudgets] = useState<Budget[]>([]);
+    const [orders, setOrders] = useState<PurchaseOrder[]>([]);
+
+    const fetchData = useCallback(async () => {
+        if (!user) {
+            setIsLoading(false);
+            return;
+        }
+
+        try {
+            setIsLoading(true);
+            await firebaseService.initializeData();
+
+            const [
+                suppliersData,
+                productsData,
+                companiesData,
+                budgetsData,
+                ordersData
+            ] = await Promise.all([
+                firebaseService.getSuppliers(),
+                firebaseService.getProducts(),
+                firebaseService.getCompanies(),
+                firebaseService.getBudgets(),
+                firebaseService.getOrders()
+            ]);
+
+            setSuppliers(suppliersData);
+            setProducts(productsData);
+            setCompanies(companiesData);
+            setBudgets(budgetsData);
+            setOrders(ordersData);
+        } catch (err) {
+            console.error("Error fetching data:", err);
+            setError("Failed to load data");
+        } finally {
+            setIsLoading(false);
+        }
+    }, [user]);
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
 
     // Supplier actions
-    const addSupplier = useCallback((supplier: Omit<Supplier, 'id'>) => {
-        const newSupplier = dataService.addSupplier(supplier);
-        setSuppliers(dataService.getSuppliers());
+    const addSupplier = useCallback(async (supplier: Omit<Supplier, 'id'>) => {
+        const newSupplier = await firebaseService.addSupplier(supplier);
+        await fetchData(); // Refresh local state
         return newSupplier;
-    }, []);
+    }, [fetchData]);
 
-    const updateSupplier = useCallback((id: number, updates: Partial<Supplier>) => {
-        dataService.updateSupplier(id, updates);
-        setSuppliers(dataService.getSuppliers());
-    }, []);
+    const updateSupplier = useCallback(async (id: number, updates: Partial<Supplier>) => {
+        await firebaseService.updateSupplier(id, updates);
+        await fetchData();
+    }, [fetchData]);
 
-    const deleteSupplier = useCallback((id: number) => {
-        dataService.deleteSupplier(id);
-        setSuppliers(dataService.getSuppliers());
-    }, []);
+    const deleteSupplier = useCallback(async (id: number) => {
+        await firebaseService.deleteSupplier(id);
+        await fetchData();
+    }, [fetchData]);
 
     // Product actions
-    const addProduct = useCallback((product: Omit<Product, 'id'>) => {
-        const newProduct = dataService.addProduct(product);
-        setProducts(dataService.getProducts());
+    const addProduct = useCallback(async (product: Omit<Product, 'id'>) => {
+        const newProduct = await firebaseService.addProduct(product);
+        await fetchData();
         return newProduct;
-    }, []);
+    }, [fetchData]);
 
-    const updateProduct = useCallback((id: string, updates: Partial<Product>) => {
-        dataService.updateProduct(id, updates);
-        setProducts(dataService.getProducts());
-    }, []);
+    const updateProduct = useCallback(async (id: string, updates: Partial<Product>) => {
+        await firebaseService.updateProduct(id, updates);
+        await fetchData();
+    }, [fetchData]);
 
-    const deleteProduct = useCallback((id: string) => {
-        dataService.deleteProduct(id);
-        setProducts(dataService.getProducts());
-    }, []);
+    const deleteProduct = useCallback(async (id: string) => {
+        await firebaseService.deleteProduct(id);
+        await fetchData();
+    }, [fetchData]);
 
     // Company actions
-    const addCompany = useCallback((company: Omit<Company, 'id'>) => {
-        const newCompany = dataService.addCompany(company);
-        setCompanies(dataService.getCompanies());
+    const addCompany = useCallback(async (company: Omit<Company, 'id'>) => {
+        const newCompany = await firebaseService.addCompany(company);
+        await fetchData();
         return newCompany;
-    }, []);
+    }, [fetchData]);
 
-    const updateCompany = useCallback((id: string, updates: Partial<Company>) => {
-        dataService.updateCompany(id, updates);
-        setCompanies(dataService.getCompanies());
-    }, []);
+    const updateCompany = useCallback(async (id: string, updates: Partial<Company>) => {
+        await firebaseService.updateCompany(id, updates);
+        await fetchData();
+    }, [fetchData]);
 
-    const deleteCompany = useCallback((id: string) => {
-        dataService.deleteCompany(id);
-        setCompanies(dataService.getCompanies());
-    }, []);
+    const deleteCompany = useCallback(async (id: string) => {
+        await firebaseService.deleteCompany(id);
+        await fetchData();
+    }, [fetchData]);
 
     // Budget actions
-    const addBudget = useCallback((budget: Budget) => {
-        const newBudget = dataService.addBudget(budget);
-        setBudgets(dataService.getBudgets());
+    const addBudget = useCallback(async (budget: Budget) => {
+        const newBudget = await firebaseService.addBudget(budget);
+        await fetchData();
         return newBudget;
-    }, []);
+    }, [fetchData]);
 
-    const updateBudget = useCallback((code: number, updates: Partial<Budget>) => {
-        dataService.updateBudget(code, updates);
-        setBudgets(dataService.getBudgets());
-    }, []);
+    const updateBudget = useCallback(async (code: number, updates: Partial<Budget>) => {
+        await firebaseService.updateBudget(code, updates);
+        await fetchData();
+    }, [fetchData]);
 
-    const deleteBudget = useCallback((code: number) => {
-        dataService.deleteBudget(code);
-        setBudgets(dataService.getBudgets());
-    }, []);
+    const deleteBudget = useCallback(async (code: number) => {
+        await firebaseService.deleteBudget(code);
+        await fetchData();
+    }, [fetchData]);
 
     // Order actions
-    const createOrder = useCallback((order: Omit<PurchaseOrder, 'id' | 'orderNumber' | 'createdAt' | 'updatedAt'>) => {
-        const newOrder = dataService.createOrder(order);
-        setOrders(dataService.getOrders());
+    const createOrder = useCallback(async (order: Omit<PurchaseOrder, 'id' | 'orderNumber' | 'createdAt' | 'updatedAt'>) => {
+        const newOrder = await firebaseService.createOrder(order);
+        await fetchData();
         return newOrder;
-    }, []);
+    }, [fetchData]);
 
-    const updateOrder = useCallback((id: string, updates: Partial<PurchaseOrder>) => {
-        dataService.updateOrder(id, updates);
-        setOrders(dataService.getOrders());
-    }, []);
+    const updateOrder = useCallback(async (id: string, updates: Partial<PurchaseOrder>) => {
+        await firebaseService.updateOrder(id, updates);
+        await fetchData();
+    }, [fetchData]);
 
-    const deleteOrder = useCallback((id: string) => {
-        dataService.deleteOrder(id);
-        setOrders(dataService.getOrders());
-    }, []);
+    const deleteOrder = useCallback(async (id: string) => {
+        await firebaseService.deleteOrder(id);
+        await fetchData();
+    }, [fetchData]);
 
     // Utilities
     const calculateOrderTotals = useCallback((items: OrderItem[], includesVat: boolean) => {
-        return dataService.calculateOrderTotals(items, includesVat);
-    }, []);
-
-    const generateOrderNumber = useCallback(() => {
-        return dataService.generateOrderNumber();
+        return firebaseService.calculateOrderTotals(items, includesVat);
     }, []);
 
     const value: AppContextType = {
@@ -168,6 +206,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         companies,
         budgets,
         orders,
+        isLoading,
+        error,
         addSupplier,
         updateSupplier,
         deleteSupplier,
@@ -184,8 +224,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         updateOrder,
         deleteOrder,
         calculateOrderTotals,
-        generateOrderNumber,
-        refreshData
+        refreshData: fetchData
     };
 
     return (

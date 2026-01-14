@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
+import { Routes, Route, NavLink, useLocation, Navigate, Outlet } from 'react-router-dom';
 import {
     LayoutDashboard,
     FileText,
@@ -9,7 +9,8 @@ import {
     Wallet,
     PlusCircle,
     Menu,
-    X
+    X,
+    LogOut
 } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
 import OrdersPage from './pages/OrdersPage';
@@ -19,12 +20,23 @@ import SuppliersPage from './pages/SuppliersPage';
 import ProductsPage from './pages/ProductsPage';
 import CompaniesPage from './pages/CompaniesPage';
 import BudgetsPage from './pages/BudgetsPage';
+import LoginPage from './pages/LoginPage';
+import { useAuth } from './context/AuthContext';
 
-export default function App() {
+function ProtectedLayout() {
+    const { user, loading, logout } = useAuth();
     const location = useLocation();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const closeMobileMenu = () => setMobileMenuOpen(false);
+
+    if (loading) {
+        return <div className="loading-screen">טוען...</div>;
+    }
+
+    if (!user) {
+        return <Navigate to="/login" state={{ from: location }} replace />;
+    }
 
     return (
         <div className="app-layout">
@@ -57,6 +69,7 @@ export default function App() {
                             to="/"
                             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                             onClick={closeMobileMenu}
+                            end
                         >
                             <LayoutDashboard size={20} />
                             <span>לוח בקרה</span>
@@ -119,21 +132,45 @@ export default function App() {
                         </NavLink>
                     </div>
                 </nav>
+
+                <div style={{ padding: '1rem', borderTop: '1px solid var(--color-border)' }}>
+                    <button
+                        onClick={logout}
+                        className="btn btn-ghost"
+                        style={{ width: '100%', justifyContent: 'flex-start', color: 'var(--color-error)' }}
+                    >
+                        <LogOut size={20} />
+                        התנתק
+                    </button>
+                    <div style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: 'var(--color-text-muted)', textAlign: 'center' }}>
+                        {user.email}
+                    </div>
+                </div>
             </aside>
 
             {/* Main Content */}
             <main className="main-content">
-                <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/orders" element={<OrdersPage />} />
-                    <Route path="/orders/new" element={<NewOrderPage />} />
-                    <Route path="/orders/:id" element={<EditOrderPage />} />
-                    <Route path="/suppliers" element={<SuppliersPage />} />
-                    <Route path="/products" element={<ProductsPage />} />
-                    <Route path="/companies" element={<CompaniesPage />} />
-                    <Route path="/budgets" element={<BudgetsPage />} />
-                </Routes>
+                <Outlet />
             </main>
         </div>
+    );
+}
+
+export default function App() {
+    return (
+        <Routes>
+            <Route path="/login" element={<LoginPage />} />
+
+            <Route element={<ProtectedLayout />}>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/orders" element={<OrdersPage />} />
+                <Route path="/orders/new" element={<NewOrderPage />} />
+                <Route path="/orders/:id" element={<EditOrderPage />} />
+                <Route path="/suppliers" element={<SuppliersPage />} />
+                <Route path="/products" element={<ProductsPage />} />
+                <Route path="/companies" element={<CompaniesPage />} />
+                <Route path="/budgets" element={<BudgetsPage />} />
+            </Route>
+        </Routes>
     );
 }

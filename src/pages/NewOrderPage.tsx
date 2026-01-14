@@ -107,7 +107,7 @@ export default function NewOrderPage() {
     };
 
     // Handle save
-    const handleSave = (status: 'draft' | 'sent') => {
+    const handleSave = async (status: 'draft' | 'sent') => {
         if (!supplierId || !companyId || !budgetCode || items.length === 0) {
             alert('נא למלא את כל השדות הנדרשים ולהוסיף לפחות פריט אחד');
             return;
@@ -137,8 +137,13 @@ export default function NewOrderPage() {
             notes
         };
 
-        const newOrder = createOrder(order);
-        navigate(`/orders/${newOrder.id}`);
+        try {
+            const newOrder = await createOrder(order);
+            navigate(`/orders/${newOrder.id}`);
+        } catch (error) {
+            console.error('Failed to create order:', error);
+            alert('אירעה שגיאה ביצירת ההזמנה');
+        }
     };
 
     const ActionButtons = () => (

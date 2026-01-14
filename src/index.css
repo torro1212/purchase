@@ -724,20 +724,30 @@ body {
 
 /* Print Styles */
 @media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
   body {
-    background: white;
-    color: black;
+    background: white !important;
+    color: black !important;
     direction: rtl;
+    font-size: 10pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .sidebar,
-  .no-print {
+  .no-print,
+  .mobile-menu-toggle {
     display: none !important;
   }
 
   .main-content {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    width: 100%;
   }
 
   .card {
@@ -747,31 +757,62 @@ body {
   }
 
   .print-order {
-    background: white;
-    color: black;
-    padding: 20px;
+    background: white !important;
+    color: black !important;
+    padding: 5mm;
+    width: 100%;
+    box-sizing: border-box;
   }
 
+  /* Fit content to page - will auto-scale for up to ~10 items */
   .print-order-header {
     border-bottom: 2px solid black;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .print-order-header h1 {
+    font-size: 16pt;
+    margin: 5px 0;
+  }
+
+  .print-order-header p {
+    margin: 2px 0;
+    font-size: 9pt;
+  }
+
+  .print-order-header img {
+    max-width: 200px !important;
+    height: auto;
   }
 
   .print-order-table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 9pt;
+    page-break-inside: auto;
   }
 
   .print-order-table th,
   .print-order-table td {
     border: 1px solid #333;
-    padding: 8px;
+    padding: 4px 6px;
     text-align: right;
   }
 
   .print-order-table th {
-    background: #f0f0f0;
+    background: #f0f0f0 !important;
+    font-size: 8pt;
+    white-space: nowrap;
+  }
+
+  .print-order-table tr {
+    page-break-inside: avoid;
+  }
+
+  /* Prevent page break for signatures */
+  .print-order>div:last-child {
+    page-break-inside: avoid;
   }
 }
 
