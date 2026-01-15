@@ -92,6 +92,96 @@ class FirebaseDataService {
         console.log('Migration completed');
     }
 
+    // ====== FORCE REFRESH PRODUCTS & SUPPLIERS ======
+    async refreshProductsAndSuppliers() {
+        console.log('Deleting old products and suppliers from Firebase...');
+
+        // Delete all existing products
+        const productsSnap = await getDocs(collection(db, 'products'));
+        const deleteBatch = writeBatch(db);
+        productsSnap.docs.forEach(docSnap => {
+            deleteBatch.delete(doc(db, 'products', docSnap.id));
+        });
+
+        // Delete all existing suppliers
+        const suppliersSnap = await getDocs(collection(db, 'suppliers'));
+        suppliersSnap.docs.forEach(docSnap => {
+            deleteBatch.delete(doc(db, 'suppliers', docSnap.id));
+        });
+
+        await deleteBatch.commit();
+        console.log('Old data deleted.');
+
+        // Add new products and suppliers
+        const addBatch = writeBatch(db);
+
+        // Add suppliers
+        suppliersData.forEach((s: any) => {
+            const ref = doc(db, 'suppliers', s.id.toString());
+            addBatch.set(ref, s);
+        });
+
+        // Add products
+        productsData.forEach((p: any) => {
+            const ref = doc(db, 'products', p.id);
+            addBatch.set(ref, p);
+        });
+
+        await addBatch.commit();
+        console.log('New products and suppliers uploaded to Firebase!');
+    }
+
+    // ====== FORCE REFRESH BUDGETS ======
+    async refreshBudgets() {
+        console.log('Deleting old budgets from Firebase...');
+
+        // Delete all existing budgets
+        const budgetsSnap = await getDocs(collection(db, 'budgets'));
+        const deleteBatch = writeBatch(db);
+        budgetsSnap.docs.forEach(docSnap => {
+            deleteBatch.delete(doc(db, 'budgets', docSnap.id));
+        });
+
+        await deleteBatch.commit();
+        console.log('Old budgets deleted.');
+
+        // Add new budgets
+        const addBatch = writeBatch(db);
+        budgetsData.forEach((b: any, index: number) => {
+            // Use index as part of ID since some budget codes are duplicated for different accounts
+            const ref = doc(db, 'budgets', `${b.code}-${index}`);
+            addBatch.set(ref, b);
+        });
+
+        await addBatch.commit();
+        console.log('New budgets uploaded to Firebase!');
+    }
+
+    // ====== FORCE REFRESH ORDERS ======
+    async refreshOrders() {
+        console.log('Deleting old orders from Firebase...');
+
+        // Delete all existing orders
+        const ordersSnap = await getDocs(collection(db, 'orders'));
+        const deleteBatch = writeBatch(db);
+        ordersSnap.docs.forEach(docSnap => {
+            deleteBatch.delete(doc(db, 'orders', docSnap.id));
+        });
+
+        await deleteBatch.commit();
+        console.log('Old orders deleted.');
+
+        // Add new orders
+        const addBatch = writeBatch(db);
+        ordersData.forEach((o: any) => {
+            const ref = doc(db, 'orders', o.id);
+            addBatch.set(ref, o);
+        });
+
+        await addBatch.commit();
+        console.log('New orders uploaded to Firebase!');
+    }
+
     // ====== SUPPLIERS ======
     async getSuppliers(): Promise<Supplier[]> {
         const snapshot = await getDocs(collection(db, 'suppliers'));
@@ -210,9 +300,10 @@ class FirebaseDataService {
         return `${year}-${count}`;
     }
 
-    async createOrder(orderData: Omit<PurchaseOrder, 'id' | 'orderNumber' | 'createdAt' | 'updatedAt'>): Promise<PurchaseOrder> {
+    async createOrder(orderData: Omit<PurchaseOrder, 'id' | 'createdAt' | 'updatedAt'> & { orderNumber?: string }): Promise<PurchaseOrder> {
         const now = new Date().toISOString();
-        const orderNumber = await this.generateOrderNumber();
+        // Use provided order number or generate new one
+        const orderNumber = orderData.orderNumber || await this.generateOrderNumber();
         const id = `order-${orderNumber}`;
 
         const newOrder: PurchaseOrder = {

@@ -46,5 +46,29 @@
         "name": "Verifone",
         "contactPerson": "שמוליק",
         "phone": "054-6778223"
+    },
+    {
+        "id": 12,
+        "name": "Ewave",
+        "contactPerson": "",
+        "phone": ""
+    },
+    {
+        "id": 13,
+        "name": "Bluebird",
+        "contactPerson": "",
+        "phone": ""
+    },
+    {
+        "id": 14,
+        "name": "G&S - Glory",
+        "contactPerson": "",
+        "phone": ""
+    },
+    {
+        "id": 15,
+        "name": "Medatech",
+        "contactPerson": "",
+        "phone": ""
     }
 ]

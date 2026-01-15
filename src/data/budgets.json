@@ -1,190 +1,218 @@
 [
     {
-        "code": 68041,
-        "type": "expenses"
+        "code": 8000312,
+        "type": "expenses",
+        "name": "רשיונות (אנטי וירוס, citrix וכו')",
+        "accountName": "ITX MERKEN B.V.- ZARA"
     },
     {
-        "code": 68107,
-        "type": "expenses"
+        "code": 8000313,
+        "type": "expenses",
+        "name": "תחזוקת חומרה",
+        "accountName": "איוויב מובייל בע\"מ"
     },
     {
-        "code": 68711,
-        "type": "expenses"
+        "code": 8000316,
+        "type": "expenses",
+        "name": "תיקוני חומרה",
+        "accountName": "איוויב מובייל בע\"מ"
     },
     {
-        "code": 70006,
-        "type": "expenses"
+        "code": 8000326,
+        "type": "expenses",
+        "name": "תקשורת",
+        "accountName": "בזק החברה הישראלית בע\"מ"
     },
     {
-        "code": 70022,
-        "type": "expenses"
+        "code": 8000326,
+        "type": "expenses",
+        "name": "תקשורת",
+        "accountName": "בזק בינלאומי"
     },
     {
-        "code": 70129,
-        "type": "expenses"
+        "code": 8000313,
+        "type": "expenses",
+        "name": "תחזוקת חומרה",
+        "accountName": "בוס-דיימקס בע\"מ"
     },
     {
-        "code": 70130,
-        "type": "expenses"
+        "code": 8000314,
+        "type": "expenses",
+        "name": "אבטחת מידע",
+        "accountName": "בוס-דיימקס בע\"מ"
     },
     {
-        "code": 70133,
-        "type": "expenses"
+        "code": 8000316,
+        "type": "expenses",
+        "name": "תיקוני חומרה",
+        "accountName": "בוס-דיימקס בע\"מ"
     },
     {
-        "code": 70160,
-        "type": "expenses"
+        "code": 8000318,
+        "type": "expenses",
+        "name": "תחזוקת תוכנות",
+        "accountName": "ביוקום בקרה ונוכחות בע\"מ"
     },
     {
-        "code": 70350,
-        "type": "expenses"
+        "code": 8000329,
+        "type": "expenses",
+        "name": "תחזוקת תשתיות תקשורת",
+        "accountName": "גיבס מחשבים בע\"מ"
     },
     {
-        "code": 70351,
-        "type": "expenses"
+        "code": 8000313,
+        "type": "expenses",
+        "name": "תחזוקת חומרה",
+        "accountName": "גיבס מחשבים בע\"מ"
     },
     {
-        "code": 70382,
-        "type": "expenses"
+        "code": 8000329,
+        "type": "expenses",
+        "name": "תחזוקת תשתיות תקשורת",
+        "accountName": "גולבר עיצוב ברזל בע\"מ"
     },
     {
-        "code": 70383,
-        "type": "expenses"
+        "code": 8000313,
+        "type": "expenses",
+        "name": "תחזוקת חומרה",
+        "accountName": "emc engineering lab (גורנשטיין)"
     },
     {
-        "code": 70386,
-        "type": "expenses"
+        "code": 8000322,
+        "type": "expenses",
+        "name": "מדפסות + מדפסות TGT + דננט",
+        "accountName": "דנגוט מחשבים בע\"מ"
     },
     {
-        "code": 70387,
-        "type": "expenses"
+        "code": 8000318,
+        "type": "expenses",
+        "name": "תחזוקת תוכנות",
+        "accountName": "דהפוינט פתרונות ניהול בע\"מ"
     },
     {
-        "code": 70388,
-        "type": "expenses"
+        "code": 8000312,
+        "type": "expenses",
+        "name": "רשיונות (אנטי וירוס, citrix וכו')",
+        "accountName": "הייפ פתרונות תשלום בע\"מ"
     },
     {
-        "code": 70392,
-        "type": "expenses"
+        "code": 8000321,
+        "type": "expenses",
+        "name": "שירות קופות / מסופון אשראי",
+        "accountName": "הייפ פתרונות תשלום בע\"מ"
     },
     {
-        "code": 70394,
-        "type": "expenses"
+        "code": 8000327,
+        "type": "expenses",
+        "name": "הודעות SMS",
+        "accountName": "ויזמה טכנולוגיות בע\"מ"
     },
     {
-        "code": 70396,
-        "type": "expenses"
+        "code": 8000329,
+        "type": "expenses",
+        "name": "תחזוקת תשתיות תקשורת",
+        "accountName": "חשמלאי ראשי כהן ברוך"
     },
     {
-        "code": 70397,
-        "type": "expenses"
+        "code": 8000317,
+        "type": "expenses",
+        "name": "תחזוקת מסכי INSTRONIC + TRISON (LCD)",
+        "accountName": "TRISON EUROPE S.L.U"
     },
     {
-        "code": 70398,
-        "type": "expenses"
+        "code": 8000329,
+        "type": "expenses",
+        "name": "תחזוקת תשתיות תקשורת",
+        "accountName": "א.א. תקשורת – התקנת מערכות תקשורת"
     },
     {
-        "code": 70399,
-        "type": "expenses"
+        "code": 8000329,
+        "type": "expenses",
+        "name": "תחזוקת תשתיות תקשורת",
+        "accountName": "מ.מ.ט.ל מערכות וטכנולוגיה"
     },
     {
-        "code": 70401,
-        "type": "expenses"
+        "code": 8000312,
+        "type": "expenses",
+        "name": "רשיונות (אנטי וירוס, citrix וכו')",
+        "accountName": "מידע מחשבים פתרונות תוכנה (ג.ד)"
     },
     {
-        "code": 70402,
-        "type": "expenses"
+        "code": 8000313,
+        "type": "expenses",
+        "name": "תחזוקת חומרה",
+        "accountName": "מיינדיו בע\"מ"
     },
     {
-        "code": 70403,
-        "type": "expenses"
+        "code": 8000312,
+        "type": "expenses",
+        "name": "רשיונות (אנטי וירוס, citrix וכו')",
+        "accountName": "מגדלור מערכות זמן אמת בע\"מ"
     },
     {
-        "code": 70404,
-        "type": "expenses"
+        "code": 8000313,
+        "type": "expenses",
+        "name": "תחזוקת חומרה",
+        "accountName": "ניר דניאל"
     },
     {
-        "code": 70405,
-        "type": "expenses"
+        "code": 8000322,
+        "type": "expenses",
+        "name": "מדפסות + מדפסות TGT + דננט",
+        "accountName": "ס. כחילה בע\"מ"
     },
     {
-        "code": 70409,
-        "type": "expenses"
+        "code": 8000313,
+        "type": "expenses",
+        "name": "תחזוקת חומרה",
+        "accountName": "סימי גרופ בע\"מ"
     },
     {
-        "code": 70410,
-        "type": "expenses"
+        "code": 8000326,
+        "type": "expenses",
+        "name": "תקשורת",
+        "accountName": "סלקום תקשורת קווית ש.מ"
     },
     {
-        "code": 70412,
-        "type": "expenses"
+        "code": 8000318,
+        "type": "expenses",
+        "name": "תחזוקת תוכנות",
+        "accountName": "סמארטסופט ישראל בע\"מ"
     },
     {
-        "code": 70413,
-        "type": "expenses"
+        "code": 8000333,
+        "type": "expenses",
+        "name": "פלאפון + חו\"ל",
+        "accountName": "פלאפון תקשורת"
     },
     {
-        "code": 70414,
-        "type": "expenses"
+        "code": 8000313,
+        "type": "expenses",
+        "name": "תחזוקת חומרה",
+        "accountName": "קשת מחשבים"
     },
     {
-        "code": 70415,
-        "type": "expenses"
+        "code": 8000327,
+        "type": "expenses",
+        "name": "הודעות SMS",
+        "accountName": "קומבוקס תקשורת ואוטומציה בע\"מ"
     },
     {
-        "code": 70416,
-        "type": "expenses"
+        "code": 8000313,
+        "type": "expenses",
+        "name": "תחזוקת חומרה",
+        "accountName": "קשת מחשבים א.ר בע\"מ"
     },
     {
-        "code": 70417,
-        "type": "expenses"
+        "code": 8000329,
+        "type": "expenses",
+        "name": "תחזוקת תשתיות תקשורת",
+        "accountName": "רונן מחשבים"
     },
     {
-        "code": 70441,
-        "type": "expenses"
-    },
-    {
-        "code": 70475,
-        "type": "expenses"
-    },
-    {
-        "code": 70490,
-        "type": "expenses"
-    },
-    {
-        "code": 70496,
-        "type": "expenses"
-    },
-    {
-        "code": 70497,
-        "type": "expenses"
-    },
-    {
-        "code": 70498,
-        "type": "expenses"
-    },
-    {
-        "code": 70499,
-        "type": "expenses"
-    },
-    {
-        "code": 70631,
-        "type": "expenses"
-    },
-    {
-        "code": 71500,
-        "type": "expenses"
-    },
-    {
-        "code": 72400,
-        "type": "expenses"
-    },
-    {
-        "code": 72404,
-        "type": "expenses"
-    },
-    {
-        "code": 80030,
-        "type": "investments"
+        "code": 8000327,
+        "type": "expenses",
+        "name": "הודעות SMS",
+        "accountName": "שמיר מערכות ומפעלים בע\"מ"
     }
 ]

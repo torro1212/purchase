@@ -12,6 +12,7 @@ export default function NewOrderPage() {
         products,
         companies,
         budgets,
+        orders,
         createOrder,
         calculateOrderTotals
     } = useApp();
@@ -28,6 +29,20 @@ export default function NewOrderPage() {
     const [location, setLocation] = useState('');
     const [items, setItems] = useState<OrderItem[]>([]);
     const [notes, setNotes] = useState('');
+
+    // Generate next available order number
+    const getNextOrderNumber = () => {
+        const year = new Date().getFullYear();
+        const yearOrders = orders.filter(o => o.orderNumber.startsWith(`${year}-`));
+        const maxNum = yearOrders.reduce((max, o) => {
+            const num = parseInt(o.orderNumber.split('-')[1]) || 0;
+            return num > max ? num : max;
+        }, 4); // Start from 4, so next will be 5
+        return `${year}-${maxNum + 1}`;
+    };
+
+    const [orderNumber, setOrderNumber] = useState(getNextOrderNumber());
+    const [orderNumberError, setOrderNumberError] = useState('');
 
     // Get supplier info and prices
     const selectedSupplier = suppliers.find(s => s.id === supplierId);
@@ -113,7 +128,17 @@ export default function NewOrderPage() {
             return;
         }
 
+        // Check for duplicate order number
+        const existingOrder = orders.find(o => o.orderNumber === orderNumber);
+        if (existingOrder) {
+            setOrderNumberError(`מספר הזמנה ${orderNumber} כבר קיים במערכת`);
+            alert(`מספר הזמנה ${orderNumber} כבר קיים במערכת. נא לבחור מספר אחר.`);
+            return;
+        }
+        setOrderNumberError('');
+
         const order = {
+            orderNumber,
             date: new Date().toISOString().split('T')[0],
             supplierId,
             supplierName: selectedSupplier?.name || '',
@@ -174,7 +199,31 @@ export default function NewOrderPage() {
                     <h1 className="page-title">הזמנה חדשה</h1>
                     <p className="page-subtitle">יצירת הזמנת רכש חדשה</p>
                 </div>
-                <div className="flex gap-md">
+                <div className="flex gap-md items-center">
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                        <label className="form-label" style={{ marginBottom: '4px', fontSize: 'var(--font-size-sm)' }}>מספר הזמנה</label>
+                        <input
+                            type="text"
+                            className="form-input"
+                            value={orderNumber}
+                            onChange={(e) => {
+                                setOrderNumber(e.target.value);
+                                setOrderNumberError('');
+                            }}
+                            style={{
+                                width: '120px',
+                                fontWeight: 600,
+                                textAlign: 'center',
+                                border: orderNumberError ? '2px solid var(--color-error)' : undefined
+                            }}
+                            dir="ltr"
+                        />
+                        {orderNumberError && (
+                            <div style={{ color: 'var(--color-error)', fontSize: 'var(--font-size-xs)', marginTop: '2px' }}>
+                                {orderNumberError}
+                            </div>
+                        )}
+                    </div>
                     <ActionButtons />
                 </div>
             </header>

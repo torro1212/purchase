@@ -6,14 +6,14 @@ import { STATUS_LABELS, type OrderStatus } from '../types';
 import * as XLSX from 'xlsx';
 
 export default function OrdersPage() {
-    const { orders, suppliers, deleteOrder } = useApp();
+    const { orders, suppliers, deleteOrder, updateOrder } = useApp();
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<OrderStatus | ''>('');
     const [supplierFilter, setSupplierFilter] = useState<number | ''>('');
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
 
-    // Filter orders
+    // Filter and sort orders (by order number descending)
     const filteredOrders = useMemo(() => {
         return orders.filter(order => {
             // Search filter
@@ -51,6 +51,12 @@ export default function OrdersPage() {
             }
 
             return true;
+        }).sort((a, b) => {
+            // Sort by order number descending (e.g., 2026-5 before 2026-1)
+            const [yearA, numA] = a.orderNumber.split('-').map(Number);
+            const [yearB, numB] = b.orderNumber.split('-').map(Number);
+            if (yearA !== yearB) return yearB - yearA;
+            return numB - numA;
         });
     }, [orders, searchTerm, statusFilter, supplierFilter, dateFrom, dateTo]);
 
@@ -202,9 +208,26 @@ export default function OrdersPage() {
                                         <td>{order.supplierName || '—'}</td>
                                         <td>{order.companyName || '—'}</td>
                                         <td>
-                                            <span className={`badge badge-${order.status}`}>
-                                                {STATUS_LABELS[order.status]}
-                                            </span>
+                                            <select
+                                                className={`form-select badge badge-${order.status}`}
+                                                value={order.status}
+                                                onChange={(e) => updateOrder(order.id, { status: e.target.value as OrderStatus })}
+                                                style={{
+                                                    padding: '4px 12px',
+                                                    fontSize: 'var(--font-size-sm)',
+                                                    fontWeight: 500,
+                                                    cursor: 'pointer',
+                                                    width: 'auto',
+                                                    minWidth: 'unset',
+                                                    textAlign: 'center',
+                                                    textAlignLast: 'center'
+                                                }}
+                                            >
+                                                <option value="draft">טיוטה</option>
+                                                <option value="sent">נשלחה</option>
+                                                <option value="received">התקבלה</option>
+                                                <option value="cancelled">בוטלה</option>
+                                            </select>
                                         </td>
                                         <td style={{ fontWeight: 600 }}>₪{order.total.toLocaleString()}</td>
                                         <td>

@@ -52,6 +52,7 @@ export interface Budget {
     code: number;
     type: 'expenses' | 'investments'; // הוצאות / השקעות
     name?: string; // תיאור התקציב (אופציונלי)
+    accountName?: string; // שם חשבון
 }
 
 // שורת הזמנה - Order Line Item

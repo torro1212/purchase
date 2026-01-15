@@ -42,7 +42,7 @@ interface AppContextType {
     deleteBudget: (code: number) => Promise<void>;
 
     // Order actions
-    createOrder: (order: Omit<PurchaseOrder, 'id' | 'orderNumber' | 'createdAt' | 'updatedAt'>) => Promise<PurchaseOrder>;
+    createOrder: (order: Omit<PurchaseOrder, 'id' | 'createdAt' | 'updatedAt'> & { orderNumber?: string }) => Promise<PurchaseOrder>;
     updateOrder: (id: string, updates: Partial<PurchaseOrder>) => Promise<void>;
     deleteOrder: (id: string) => Promise<void>;
 
@@ -78,6 +78,30 @@ export function AppProvider({ children }: { children: ReactNode }) {
         try {
             setIsLoading(true);
             await firebaseService.initializeData();
+
+            // One-time refresh for new products data - v4
+            const PRODUCTS_VERSION = 'products_v4_2026';
+            if (localStorage.getItem('products_version') !== PRODUCTS_VERSION) {
+                console.log('Refreshing products and suppliers in Firebase...');
+                await firebaseService.refreshProductsAndSuppliers();
+                localStorage.setItem('products_version', PRODUCTS_VERSION);
+            }
+
+            // One-time refresh for new budgets data - v4
+            const BUDGETS_VERSION = 'budgets_v4_2026';
+            if (localStorage.getItem('budgets_version') !== BUDGETS_VERSION) {
+                console.log('Refreshing budgets in Firebase...');
+                await firebaseService.refreshBudgets();
+                localStorage.setItem('budgets_version', BUDGETS_VERSION);
+            }
+
+            // One-time refresh for orders data - v3
+            const ORDERS_VERSION = 'orders_v3_2026';
+            if (localStorage.getItem('orders_version') !== ORDERS_VERSION) {
+                console.log('Refreshing orders in Firebase...');
+                await firebaseService.refreshOrders();
+                localStorage.setItem('orders_version', ORDERS_VERSION);
+            }
 
             const [
                 suppliersData,
@@ -179,7 +203,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }, [fetchData]);
 
     // Order actions
-    const createOrder = useCallback(async (order: Omit<PurchaseOrder, 'id' | 'orderNumber' | 'createdAt' | 'updatedAt'>) => {
+    const createOrder = useCallback(async (order: Omit<PurchaseOrder, 'id' | 'createdAt' | 'updatedAt'> & { orderNumber?: string }) => {
         const newOrder = await firebaseService.createOrder(order);
         await fetchData();
         return newOrder;

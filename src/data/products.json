@@ -3,54 +3,243 @@
         "id": "prod-1",
         "name": "Lane 3000 - מסופון אשראי",
         "sku": "100-000234",
-        "description": "מסופון אשראי - ingenico",
+        "description": "מסופון אשראי - Ingenico",
         "currency": "ILS",
-        "supplierId": 11,
-        "price": 1200
+        "supplierId": 6,
+        "price": 650
     },
     {
         "id": "prod-2",
-        "name": "Lane 3000 - מעמד יעודי",
+        "name": "Lane 3000 - מעמד ייעודי",
         "sku": "200-000242",
         "description": "מעמד למסופון אשראי",
         "currency": "ILS",
-        "supplierId": 11,
+        "supplierId": 6,
         "price": 150
     },
     {
         "id": "prod-3",
         "name": "Lane 3000 - דמי התקנה (0-5 יח)",
         "sku": "אין מק\"ט",
-        "description": "דמי התקנה (0-5 יח)",
+        "description": "דמי התקנה (0-5 יחידות)",
         "currency": "ILS",
-        "supplierId": 11,
-        "price": 500
+        "supplierId": 6,
+        "price": 140
     },
     {
         "id": "prod-4",
         "name": "Lane 3000 - דמי התקנה (5-10 יח)",
         "sku": "אין מק\"ט",
-        "description": "דמי התקנה (5-10 יח)",
+        "description": "דמי התקנה (5-10 יחידות)",
         "currency": "ILS",
-        "supplierId": 11,
-        "price": 400
+        "supplierId": 6,
+        "price": 120
     },
     {
         "id": "prod-5",
         "name": "Lane 3000 - דמי התקנה (10-30 יח)",
         "sku": "אין מק\"ט",
-        "description": "דמי התקנה (10-30 יח)",
+        "description": "דמי התקנה (10-30 יחידות)",
         "currency": "ILS",
-        "supplierId": 11,
-        "price": 300
+        "supplierId": 6,
+        "price": 100
     },
     {
         "id": "prod-6",
         "name": "אינטגרציה (שעות עבודה)",
         "sku": "אין מק\"ט",
-        "description": "אינטגרציה (שעות עבודה)",
+        "description": "אינטגרציה – שעות עבודה",
         "currency": "ILS",
-        "supplierId": 11,
+        "supplierId": 6,
         "price": 350
+    },
+    {
+        "id": "prod-7",
+        "name": "מסופון HF550X",
+        "sku": "XTP-HF551X",
+        "description": "Bluebird HF550X, Android 10, WI-FI",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 435
+    },
+    {
+        "id": "prod-8",
+        "name": "אקדח RFID HF550X",
+        "sku": "XSB-RFR971-H5X",
+        "description": "Bluebird RFR971 – סורק RFID",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 468
+    },
+    {
+        "id": "prod-9",
+        "name": "ערסל רביעייה HF550X",
+        "sku": "XAP-CEF552",
+        "description": "ערסל לטעינת 4 מסופונים HF550X",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 220
+    },
+    {
+        "id": "prod-10",
+        "name": "ספק כח לערסל רביעייה HF550X",
+        "sku": "XAA-0022",
+        "description": "ספק כח 12V/10A לערסל רביעייה HF550X",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 57
+    },
+    {
+        "id": "prod-11",
+        "name": "שירות ואחריות מסופון (3 שנים)",
+        "sku": "חוזה שירות",
+        "description": "שירות תיקונים ותחזוקה ל-3 שנים למסופון RFID HF550X",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 182
+    },
+    {
+        "id": "prod-12",
+        "name": "שירות ואחריות אקדח (3 שנים)",
+        "sku": "חוזה שירות",
+        "description": "שירות תיקונים ותחזוקה ל-3 שנים לאקדח RFID RFR971",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 72
+    },
+    {
+        "id": "prod-13",
+        "name": "מסופון EF550R - מחסן",
+        "sku": "XTP-EF551R",
+        "description": "Bluebird EF550R, Android 10, WI-FI",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 655
+    },
+    {
+        "id": "prod-14",
+        "name": "אקדח RFID RFR900 - מחסן",
+        "sku": "XSB-RFR900-550R",
+        "description": "Bluebird RFR900 – סורק RFID",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 430
+    },
+    {
+        "id": "prod-15",
+        "name": "ערסל רביעייה EF550R - מחסן",
+        "sku": "XAP-EF552",
+        "description": "ערסל לטעינת 4 מסופונים EF550R",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 250
+    },
+    {
+        "id": "prod-16",
+        "name": "ספק כח לערסל רביעייה EF550R - מחסן",
+        "sku": "XAA-0015",
+        "description": "ספק כח 12V/10A לערסל רביעייה EF550R",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 36
+    },
+    {
+        "id": "prod-17",
+        "name": "שירות ואחריות מסופון (3 שנים) - מחסן",
+        "sku": "חוזה שירות",
+        "description": "שירות תיקונים ותחזוקה ל-3 שנים למסופון RFID EF550R",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 220
+    },
+    {
+        "id": "prod-18",
+        "name": "שירות ואחריות אקדח (3 שנים) - מחסן",
+        "sku": "חוזה שירות",
+        "description": "שירות תיקונים ותחזוקה ל-3 שנים לאקדח RFID RFR971",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 80
+    },
+    {
+        "id": "prod-19",
+        "name": "סוללה למסופון - מחסן",
+        "sku": "XAP-EF555",
+        "description": "סוללה 4350mAh עבור EF550",
+        "currency": "USD",
+        "supplierId": 12,
+        "price": 52
+    },
+    {
+        "id": "prod-20",
+        "name": "Glory CI-10X",
+        "sku": "אין מק\"ט",
+        "description": "מכונת מזומנים GLORY CI-10X",
+        "currency": "EUR",
+        "supplierId": 14,
+        "price": 8563
+    },
+    {
+        "id": "prod-21",
+        "name": "Glory הובלה",
+        "sku": "אין מק\"ט",
+        "description": "עלות הובלה ושילוח למכונת GLORY",
+        "currency": "EUR",
+        "supplierId": 14,
+        "price": 1300
+    },
+    {
+        "id": "prod-22",
+        "name": "הובלה למכשיר נוסף - GLORY",
+        "sku": "אין מק\"ט",
+        "description": "הובלה למכשיר נוסף",
+        "currency": "EUR",
+        "supplierId": 14,
+        "price": 160
+    },
+    {
+        "id": "prod-23",
+        "name": "ZQ610 BT מדפסת ניידת",
+        "sku": "אין מק\"ט",
+        "description": "מדפסת ניידת ZQ610 BT",
+        "currency": "USD",
+        "supplierId": 10,
+        "price": 620
+    },
+    {
+        "id": "prod-24",
+        "name": "ZQ610 שירות 3 שנים",
+        "sku": "אין מק\"ט",
+        "description": "שירות ואחריות 3 שנים למדפסת ZQ610",
+        "currency": "USD",
+        "supplierId": 10,
+        "price": 167
+    },
+    {
+        "id": "prod-25",
+        "name": "סוללה עבור ZQ610",
+        "sku": "אין מק\"ט",
+        "description": "סוללה למדפסת ZQ610",
+        "currency": "USD",
+        "supplierId": 10,
+        "price": 108
+    },
+    {
+        "id": "prod-26",
+        "name": "ערסל טעינה 6 סוללות ZQ6XX",
+        "sku": "אין מק\"ט",
+        "description": "ערסל טעינה ל-6 סוללות ZQ6XX",
+        "currency": "USD",
+        "supplierId": 10,
+        "price": 495
+    },
+    {
+        "id": "prod-27",
+        "name": "שעת עבודה למפתח",
+        "sku": "אין מק\"ט",
+        "description": "עלות שעת עבודה למפתח",
+        "currency": "ILS",
+        "supplierId": 15,
+        "price": 280
     }
 ]

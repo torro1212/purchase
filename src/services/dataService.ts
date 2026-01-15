@@ -21,6 +21,13 @@ import ordersData from '../data/orders.json';
 
 const STORAGE_KEY = 'purchase_orders_system';
 
+// Force refresh data - remove after loading once
+const DATA_VERSION = 'v2_products_update';
+if (localStorage.getItem('data_version') !== DATA_VERSION) {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.setItem('data_version', DATA_VERSION);
+}
+
 // Initialize state from localStorage or defaults
 function getInitialState(): AppState {
     const stored = localStorage.getItem(STORAGE_KEY);

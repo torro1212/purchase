@@ -11,10 +11,12 @@ export default function BudgetsPage() {
         code: string;
         type: 'expenses' | 'investments';
         name: string;
+        accountName: string;
     }>({
         code: '',
         type: 'expenses',
-        name: ''
+        name: '',
+        accountName: ''
     });
 
     const expenseBudgets = budgets.filter(b => b.type === 'expenses');
@@ -26,11 +28,12 @@ export default function BudgetsPage() {
             setFormData({
                 code: String(budget.code),
                 type: budget.type,
-                name: budget.name || ''
+                name: budget.name || '',
+                accountName: budget.accountName || ''
             });
         } else {
             setEditingBudget(null);
-            setFormData({ code: '', type: 'expenses', name: '' });
+            setFormData({ code: '', type: 'expenses', name: '', accountName: '' });
         }
         setIsModalOpen(true);
     };
@@ -38,7 +41,7 @@ export default function BudgetsPage() {
     const closeModal = () => {
         setIsModalOpen(false);
         setEditingBudget(null);
-        setFormData({ code: '', type: 'expenses', name: '' });
+        setFormData({ code: '', type: 'expenses', name: '', accountName: '' });
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -53,13 +56,15 @@ export default function BudgetsPage() {
             if (editingBudget) {
                 updateBudget(editingBudget.code, {
                     type: formData.type,
-                    name: formData.name || undefined
+                    name: formData.name || undefined,
+                    accountName: formData.accountName || undefined
                 });
             } else {
                 addBudget({
                     code,
                     type: formData.type,
-                    name: formData.name || undefined
+                    name: formData.name || undefined,
+                    accountName: formData.accountName || undefined
                 });
             }
             closeModal();
@@ -92,6 +97,11 @@ export default function BudgetsPage() {
             {budget.name && (
                 <div style={{ fontSize: 'var(--font-size-sm)', fontWeight: 400, color: 'var(--color-text-muted)' }}>
                     {budget.name}
+                </div>
+            )}
+            {budget.accountName && (
+                <div style={{ fontSize: 'var(--font-size-xs)', fontWeight: 500, color: 'var(--color-primary)' }}>
+                    {budget.accountName}
                 </div>
             )}
             <div className="table-actions" style={{ justifyContent: 'center', marginTop: 'var(--spacing-xs)' }}>
@@ -266,6 +276,16 @@ export default function BudgetsPage() {
                                         value={formData.name}
                                         onChange={e => setFormData({ ...formData, name: e.target.value })}
                                         placeholder="תיאור התקציב"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">שם חשבון</label>
+                                    <input
+                                        type="text"
+                                        className="form-input"
+                                        value={formData.accountName}
+                                        onChange={e => setFormData({ ...formData, accountName: e.target.value })}
+                                        placeholder="שם החשבון"
                                     />
                                 </div>
                             </div>

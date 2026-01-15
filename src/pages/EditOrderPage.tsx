@@ -472,7 +472,7 @@ export default function EditOrderPage() {
         `}</style>
 
                 <div className="print-order-header" style={{ textAlign: 'center', marginBottom: '20px' }}>
-                    <img src="/logo.png" alt="Logo" style={{ maxWidth: '300px', marginBottom: '10px' }} />
+                    <img src="/logo.png" alt="Logo" style={{ maxWidth: '400px', marginBottom: '10px' }} />
                     <h1 style={{ margin: 0 }}>טופס הזמנת רכש</h1>
                     <p>רחוב: יוני נתניהו 1, אור יהודה, 6037601</p>
                     <p>טלפון 03-6754200 | פקס 153-35386394</p>
@@ -550,10 +550,17 @@ export default function EditOrderPage() {
                     <p><strong>מע״מ:</strong> {includesVat ? 'יתווסף 18%' : 'לא כולל'}</p>
                 </div>
 
-                <div style={{ marginTop: '50px' }}>
-                    <p><strong>תאריך:</strong> _____________________</p>
-                    <div style={{ marginTop: '30px' }}></div>
-                    <p><strong>חתימה:</strong> _____________________</p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '40px' }}>
+                    <div style={{ textAlign: 'right' }}>
+                        <p><strong>תאריך:</strong> _____________________</p>
+                        <div style={{ marginTop: '30px' }}></div>
+                        <p><strong>חתימה:</strong> _____________________</p>
+                    </div>
+                    <div style={{ textAlign: 'left' }}>
+                        <p><strong>סוג תקציב:</strong> {order.budgetType === 'investments' ? 'השקעה' : 'הוצאה'}</p>
+                        <br />
+                        <p><strong>מספר תקציב:</strong> {order.budgetCode}</p>
+                    </div>
                 </div>
             </div>
         </div>
